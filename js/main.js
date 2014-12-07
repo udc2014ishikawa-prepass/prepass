@@ -7,7 +7,7 @@ $(function(){
     function showGoogleMap(initLat, initLng) {
         var latlng = new google.maps.LatLng(initLat, initLng);
         var opts = {
-            zoom: 14,
+            zoom: 16,
 center: latlng,
 mapTypeId: google.maps.MapTypeId.ROADMAP
         };
@@ -15,10 +15,14 @@ mapTypeId: google.maps.MapTypeId.ROADMAP
 
         //現在地のピン
         var now_latlng = new google.maps.LatLng(initLat, initLng);
-        var marker1 = new google.maps.Marker({
+        var now_marker = new google.maps.Marker({
             position:now_latlng,
             title: '現在地',
             map: map
+        });
+
+        google.maps.event.addListener(now_marker, 'click', function() {
+            alert("now_marker");
         });
 
         pushPins(map);
