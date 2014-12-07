@@ -4,30 +4,75 @@
         <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
         <title>Google Maps JavaScript API サンプル</title>
         <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=TRUE_OR_FALSE"></script>
         <script>
-            function initialize() {
-                var latlng = new google.maps.LatLng(35.630442,139.882951);
-                var opts = {
-                    zoom: 14,
-                    center: latlng,
-                    mapTypeId: google.maps.MapTypeId.ROADMAP
-                };
-                var map = new google.maps.Map(document.getElementById("map_canvas"), opts);
+            $(function(){
+                initlaize();
+                function initlaize() {
+                    getLocation();
+                }
 
-                var m_latlng1 = new google.maps.LatLng(35.632605,139.88132);
-                var marker1 = new google.maps.Marker({
-                    position: m_latlng1,
-                    map: map
-                });
+                function showGoogleMap(initLat, initLng) {
+                    var latlng = new google.maps.LatLng(initLat, initLng);
+                    var opts = {
+                        zoom: 12,
+                        center: latlng,
+                        mapTypeId: google.maps.MapTypeId.ROADMAP
+                    };
+                    var map = new google.maps.Map(document.getElementById("map_canvas"), opts);
 
-                var m_latlng2 = new google.maps.LatLng(35.625663,139.884238);
-                var marker2 = new google.maps.Marker({
-                    position: m_latlng2,
-                    map: map
-                });
-            }
+                    //現在地のピン
+                    var now_latlng = new google.maps.LatLng(initLat, initLng);
+                    var marker1 = new google.maps.Marker({
+                        position:now_latlng,
+                        map: map
+                    });
+
+                    /*
+                    var m_latlng1 = new google.maps.LatLng(35.632605,139.88132);
+                    var marker1 = new google.maps.Marker({
+                        position: m_latlng1,
+                        map: map
+                    });
+
+                    var m_latlng2 = new google.maps.LatLng(35.625663,139.884238);
+                    var marker2 = new google.maps.Marker({
+                        position: m_latlng2,
+                        map: map
+                    });
+                    */
+                }
+
+                function getLocation() {
+                    if (navigator.geolocation) {
+                        navigator.geolocation.getCurrentPosition(successCallback,errorCallback)
+                    } else {
+                        errorCallback();
+                    }
+                }
+
+                function successCallback(pos) {
+                    var lat = pos.coords.latitude;
+                    var lng = pos.coords.longitude;
+                    showGoogleMap(lat, lng);
+                }
+
+                function errorCallback() {
+                    alert("cannot get location");
+                }
+            });
+
+        </script>
+
+        <script>
+/*
+            $(function(){
+                var l = navigator.geolocation;
+                console.log(l);
+            });
+            */
         </script>
         <style>
             body {
@@ -36,7 +81,7 @@
         </style>
 
     </head>
-    <body onload="initialize()">
+    <body>
         <div id="map_canvas" style="width:100%; height:300px"></div>
     </body>
 </html>
