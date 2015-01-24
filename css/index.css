@@ -52,10 +52,6 @@ body {
         line-height: 2;
 }
 @media screen and (max-width: 767px) {
-    body {
-    	background-image: url("../img/bg.jpg");
-    }
-
     .jumbotron h1 {
 	    font-size: 48px;
         line-height: 1;
@@ -76,10 +72,6 @@ body {
 
 }
 @media screen and (max-width: 480px) {
-    
-    body {
-    	background-image: url("../img/bg.jpg");
-    }
 
     .jumbotron h1 {
 	    font-size: 36px;
