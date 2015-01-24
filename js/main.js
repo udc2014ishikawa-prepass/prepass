@@ -52,27 +52,28 @@ mapTypeId: google.maps.MapTypeId.ROADMAP
                 if (i == 0) {
                     continue;
                 }
-                pushPin(map, data);
+                pushPin(map, data[i]);
             }
         });
     }
 
     function pushPin(map, data) {
         //現在地のピン
-        var lat = data[i][6];
-        var lng = data[i][7];
+        var lat = data[6];
+        var lng = data[7];
         var latlng = new google.maps.LatLng(lat, lng);
         var marker = new google.maps.Marker({
             position:latlng,
             map: map
         });
 
+        var name = data[2];
+
         google.maps.event.addListener(marker, 'click', function() {
-            var infowindow = new google.maps.InfoWindow({
-                  content: 'click',
-                  position: marker.getPosition(),
-            });
-            infowindow.open(map);
+            var html = name;
+            var infowindow = new google.maps.InfoWindow();
+            infowindow.setContent(html);
+            infowindow.open(map, marker);
         });
     }
 
