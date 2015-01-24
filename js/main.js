@@ -67,14 +67,44 @@ mapTypeId: google.maps.MapTypeId.ROADMAP
             map: map
         });
 
-        var name = data[2];
+        var coid        = data[0];
+        var ofid        = data[1];
+        var name        = data[2];
+        var address     = data[4] + data[5];
+        var tel         = data[8];
+        var url         = data[10];
+        var opentime    = data[11];
+        var restdates   = data[12];
+        var description = data[13];
+        var image       = getSpotImage(coid, ofid);
+        //var image = "http://www.dummyimage.com/160x120";
 
         google.maps.event.addListener(marker, 'click', function() {
-            var html = name;
+            var html = "";
+            html += "<div style='width:300px;'>"
+            html += "<h3>" + name + "</h3>"
+            html += "<p><img src=\"" + image + "\" width=\"240\" height=\"180\"></p>";
+            html += "<dl>";
+            html += "<dt>住所</dt><dd>" + address + "</dd>";
+            html += "<dt>電話番号</dt><dd>" + tel + "</dd>";
+            if (url.length) {
+                html += "<dt>URL</dt><dd>" + url + "</dd>";
+            }
+            html += "<dt>営業時間</dt><dd>" + opentime + "</dd>";
+            html += "<dt>定休日</dt><dd>" + restdates + "</dd>";
+            html += "<dt>特典内容</dt><dd>" + description + "</dd>";
+            html += "</dl>";
+            html += "</div>";
             var infowindow = new google.maps.InfoWindow();
             infowindow.setContent(html);
             infowindow.open(map, marker);
         });
+    }
+
+    function getSpotImage(coid, ofid)
+    {
+        var url = "http://www.i-oyacomi.net/prepass/upimages/" + coid + ofid + "ofPic1_small.jpg";
+        return url;
     }
 
     function csvToArray(filename, callback) {
