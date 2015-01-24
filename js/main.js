@@ -14,16 +14,14 @@ mapTypeId: google.maps.MapTypeId.ROADMAP
         var map = new google.maps.Map(document.getElementById("map_canvas"), opts);
 
         //現在地のピン
+        /*
         var now_latlng = new google.maps.LatLng(initLat, initLng);
         var now_marker = new google.maps.Marker({
             position:now_latlng,
             title: '現在地',
-            map: map
+            map: map,
         });
-
-        google.maps.event.addListener(now_marker, 'click', function() {
-            alert("now_marker");
-        });
+        */
 
         pushPins(map);
     }
@@ -50,24 +48,31 @@ mapTypeId: google.maps.MapTypeId.ROADMAP
     function pushPins(map)
     {
         csvToArray('data/prepath.csv', function(data){
-            console.log(data);
             for (i in data){
                 if (i == 0) {
                     continue;
                 }
-                var lat = data[i][6];
-                var lng = data[i][7];
-                pushPin(map, lat, lng);
+                pushPin(map, data);
             }
         });
     }
 
-    function pushPin(map, lat, lng) {
+    function pushPin(map, data) {
         //現在地のピン
+        var lat = data[i][6];
+        var lng = data[i][7];
         var latlng = new google.maps.LatLng(lat, lng);
         var marker = new google.maps.Marker({
             position:latlng,
             map: map
+        });
+
+        google.maps.event.addListener(marker, 'click', function() {
+            var infowindow = new google.maps.InfoWindow({
+                  content: 'click',
+                  position: marker.getPosition(),
+            });
+            infowindow.open(map);
         });
     }
 
