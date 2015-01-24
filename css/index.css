@@ -1,6 +1,8 @@
 body {
 	background-image: url("../img/bg.jpg");
     background-size: cover;
+    
+    background-position:center center;
     padding-top: 20px;
     padding-bottom: 40px;
     color:#EEE;
@@ -49,7 +51,11 @@ body {
 	    font-size: 36px;
         line-height: 2;
 }
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 767px) {
+    body {
+    	background-image: url("../img/bg.jpg");
+    }
+
     .jumbotron h1 {
 	    font-size: 48px;
         line-height: 1;
@@ -69,7 +75,12 @@ body {
     }
 
 }
-@media screen and (max-width: 375px) {
+@media screen and (max-width: 480px) {
+    
+    body {
+    	background-image: url("../img/bg.jpg");
+    }
+
     .jumbotron h1 {
 	    font-size: 36px;
         line-height: 1;
