@@ -2,7 +2,22 @@
 <html>
     <head>
         <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
-        <title>現在地近くのプレパス使えるスポット</title>
+        <title>ぷれぱ！</title>
+
+        <!-- Sets initial viewport load and disables zooming  -->
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+
+        <!-- Makes your prototype chrome-less once bookmarked to your phone's home screen -->
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+        <!-- Include the compiled Ratchet CSS -->
+        <link href="css/ratchet.css" rel="stylesheet">
+
+        <!-- Include the compiled Ratchet JS -->
+        <script src="ratchet.js"></script>
+
+        <!-- Include fork origin -->
         <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
         <link href="css/main.css" rel="stylesheet">
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
@@ -11,7 +26,24 @@
         <script src="js/main.js"></script>
     </head>
     <body>
-        <div id="loading" style="font-color:#ffffff">Now Loading....</div>
-        <div id="map_canvas" style="width:640px; height:600px"></div>
+        <!-- Make sure all your bars are the first things in your <body> -->
+        <header class="bar bar-nav">
+            <h1 class="title">現在地近くのプレパスが使えるスポット</h1>
+        </header>
+        <div class="content">
+            <div id="loading" style="font-color:#ffffff">Now Loading....</div>
+            <div id="map_canvas" style="width:640px; height:600px"></div>
+        </div>
+        <nav class="bar bar-tab">
+            <a class="tab-item active" href="#">
+                食べる
+            </a>
+            <a class="tab-item" href="#">
+                遊ぶ
+            </a>
+            <a class="tab-item" href="#">
+                買う
+            </a>
+        </nav>
     </body>
 </html>
