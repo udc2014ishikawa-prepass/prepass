@@ -1,5 +1,10 @@
 $(function(){
     initlaize();
+
+    var KANAZAWA_STATION_LAT = 36.578273;
+    var KANAZAWA_STATION_LNG = 136.647763;
+    var FARAWAY_DISTANCE     = 0.8;
+
     function initlaize() {
         getLocation();
     }
@@ -28,7 +33,7 @@ mapTypeId: google.maps.MapTypeId.ROADMAP
 
     function getLocation() {
         if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(successCallback,errorCallback)
+            navigator.geolocation.getCurrentPosition(successCallback,errorCallback);
         } else {
             errorCallback();
         }
@@ -37,12 +42,29 @@ mapTypeId: google.maps.MapTypeId.ROADMAP
     function successCallback(pos) {
         var lat = pos.coords.latitude;
         var lng = pos.coords.longitude;
+
+        //石川から大きく離れた場所の場合、現在地情報を金沢駅に設定
+        if (getDistanceFromKanazawaStation(lat, lng) > FARAWAY_DISTANCE) {
+            lat = KANAZAWA_STATION_LAT;
+            lng = KANAZAWA_STATION_LNG;
+        }
         $('#loading').hide();
         showGoogleMap(lat, lng);
     }
 
     function errorCallback() {
         alert("cannot get location");
+    }
+
+    function getDistance(x1, x2, y1, y2) {
+        var distance = Math.sqrt(Math.pow((x2 - x1), 2) + Math.pow((y2 - y1), 2));
+        return distance;
+    }
+
+    function getDistanceFromKanazawaStation(lat, lng)
+    {
+        var distance = getDistance(lat, KANAZAWA_STATION_LAT, lng, KANAZAWA_STATION_LNG);
+        return distance;
     }
 
     function pushPins(map)
