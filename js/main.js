@@ -103,17 +103,17 @@ mapTypeId: google.maps.MapTypeId.ROADMAP
 
         google.maps.event.addListener(marker, 'click', function() {
             var html = "";
-            html += "<div style='width:300px;'>"
-            html += "<h3>" + name + "</h3>"
-            html += "<p><img src=\"" + image + "\" width=\"240\" height=\"180\"></p>";
-            html += "<dl>";
-            html += "<dt>住所</dt><dd>" + address + "</dd>";
-            html += "<dt>電話番号</dt><dd>" + tel + "</dd>";
-            if (url.length) {
-                html += "<dt>URL</dt><dd>" + url + "</dd>";
-            }
-            html += "<dt>営業時間</dt><dd>" + opentime + "</dd>";
-            html += "<dt>定休日</dt><dd>" + restdates + "</dd>";
+            html += "<div style='width:200px;'>"
+            html += "<h4>" + name + "</h4>"
+            html += "<p style='text-align:center'><img src='" + image + "' width='160' height='120'></p>";
+            //html += "<dl>";
+            //html += "<dt>住所</dt><dd>" + address + "</dd>";
+            //html += "<dt>電話番号</dt><dd>" + tel + "</dd>";
+            //if (url.length) {
+            //    html += "<dt>URL</dt><dd><a target='_blank' href='"+ url + "'>" + url + "</a></dd>";
+            //}
+            //html += "<dt>営業時間</dt><dd>" + opentime + "</dd>";
+            //html += "<dt>定休日</dt><dd>" + restdates + "</dd>";
             html += "<dt>特典内容</dt><dd>" + description + "</dd>";
             html += "</dl>";
             html += "</div>";
