@@ -1,5 +1,10 @@
 $(function(){
     initlaize();
+
+    var KANAZAWA_STATION_LAT = 36.578273;
+    var KANAZAWA_STATION_LNG = 136.647763;
+    var FARAWAY_DISTANCE     = 0.8;
+
     function initlaize() {
         getLocation();
     }
@@ -28,7 +33,7 @@ mapTypeId: google.maps.MapTypeId.ROADMAP
 
     function getLocation() {
         if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(successCallback,errorCallback)
+            navigator.geolocation.getCurrentPosition(successCallback,errorCallback);
         } else {
             errorCallback();
         }
@@ -37,12 +42,29 @@ mapTypeId: google.maps.MapTypeId.ROADMAP
     function successCallback(pos) {
         var lat = pos.coords.latitude;
         var lng = pos.coords.longitude;
+
+        //石川から大きく離れた場所の場合、現在地情報を金沢駅に設定
+        if (getDistanceFromKanazawaStation(lat, lng) > FARAWAY_DISTANCE) {
+            lat = KANAZAWA_STATION_LAT;
+            lng = KANAZAWA_STATION_LNG;
+        }
         $('#loading').hide();
         showGoogleMap(lat, lng);
     }
 
     function errorCallback() {
         alert("cannot get location");
+    }
+
+    function getDistance(x1, x2, y1, y2) {
+        var distance = Math.sqrt(Math.pow((x2 - x1), 2) + Math.pow((y2 - y1), 2));
+        return distance;
+    }
+
+    function getDistanceFromKanazawaStation(lat, lng)
+    {
+        var distance = getDistance(lat, KANAZAWA_STATION_LAT, lng, KANAZAWA_STATION_LNG);
+        return distance;
     }
 
     function pushPins(map)
@@ -81,17 +103,17 @@ mapTypeId: google.maps.MapTypeId.ROADMAP
 
         google.maps.event.addListener(marker, 'click', function() {
             var html = "";
-            html += "<div style='width:300px;'>"
-            html += "<h3>" + name + "</h3>"
-            html += "<p><img src=\"" + image + "\" width=\"240\" height=\"180\"></p>";
-            html += "<dl>";
-            html += "<dt>住所</dt><dd>" + address + "</dd>";
-            html += "<dt>電話番号</dt><dd>" + tel + "</dd>";
-            if (url.length) {
-                html += "<dt>URL</dt><dd>" + url + "</dd>";
-            }
-            html += "<dt>営業時間</dt><dd>" + opentime + "</dd>";
-            html += "<dt>定休日</dt><dd>" + restdates + "</dd>";
+            html += "<div style='width:200px;'>"
+            html += "<h4>" + name + "</h4>"
+            html += "<p style='text-align:center'><img src='" + image + "' width='160' height='120'></p>";
+            //html += "<dl>";
+            //html += "<dt>住所</dt><dd>" + address + "</dd>";
+            //html += "<dt>電話番号</dt><dd>" + tel + "</dd>";
+            //if (url.length) {
+            //    html += "<dt>URL</dt><dd><a target='_blank' href='"+ url + "'>" + url + "</a></dd>";
+            //}
+            //html += "<dt>営業時間</dt><dd>" + opentime + "</dd>";
+            //html += "<dt>定休日</dt><dd>" + restdates + "</dd>";
             html += "<dt>特典内容</dt><dd>" + description + "</dd>";
             html += "</dl>";
             html += "</div>";
