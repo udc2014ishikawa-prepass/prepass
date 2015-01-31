@@ -226,7 +226,7 @@ google.bookmarkbubble.Bubble.prototype.IMAGE_CLOSE_DATA_URL_ = 'data:image/png;b
  * @private
  */
 google.bookmarkbubble.Bubble.prototype.REL_ICON_ =
-    '../../img/icon.png';
+    'apple-touch-icon-precomposed';
 
 
 /**
@@ -560,12 +560,12 @@ google.bookmarkbubble.Bubble.prototype.build_ = function() {
   // The "Add to Home Screen" text is intended to be the exact same text
   // that is displayed in the menu of Mobile Safari.
   if (this.getIosVersion_() >= this.getVersion_(4, 2)) {
-    bubbleInner.innerHTML = 'Install this web app on your phone: ' +
-        'tap on the arrow and then <b>\'Add to Home Screen\'</b>';
+    bubbleInner.innerHTML = 'このwebアプリは、インストールできます！ ' +
+        '矢印をタップして <b>\'ホーム画面に追加\'</b>';
   } else {
-    bubbleInner.innerHTML = 'Install this web app on your phone: ' +
-        'tap <b style="font-size:15px">+</b> and then ' +
-        '<b>\'Add to Home Screen\'</b>';
+    bubbleInner.innerHTML = 'このwebアプリは、インストールできます！ ' +
+        'tap <b style="font-size:15px">+</b> をタップして ' +
+        '<b>\'ホーム画面に追加\'</b>';
   }
 
   var icon = document.createElement('div');
