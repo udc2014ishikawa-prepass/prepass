@@ -53,7 +53,10 @@ mapTypeId: google.maps.MapTypeId.ROADMAP
     }
 
     function errorCallback() {
-        alert("cannot get location");
+        $('#loading').hide();
+
+        //位置情報取得不可の場合も現在地情報を金沢駅に補正
+        showGoogleMap(KANAZAWA_STATION_LAT, KANAZAWA_STATION_LNG);
     }
 
     function getDistance(x1, x2, y1, y2) {
@@ -69,7 +72,7 @@ mapTypeId: google.maps.MapTypeId.ROADMAP
 
     function pushPins(map)
     {
-        csvToArray('data/prepath.csv', function(data){
+        csvToArray('data/prepass.csv', function(data){
             for (i in data){
                 if (i == 0) {
                     continue;
